@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="THIS IS YOUR NAME">
+<meta name="author" content="Gus Kathol">
 <meta name="dcterms.date" content="2024-04-15">
 
 <title>Gus Kathol’s Sports Data Fun House - CHANGE THIS TO BE THE TITLE OF YOUR POST</title>
@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>THIS IS YOUR NAME </p>
+               <p>Gus Kathol </p>
             </div>
     </div>
       
@@ -190,12 +190,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>All is fair in love and war, but definitely not in football. And yes, even though I am an American I am going to be pretentious and call it football. The various leagues around the world are dominated by the clubs with the most spending power. The world is dominated by the leagues with the largest tv contracts.</p>
-<p>The Premier League, England’s top football league is not exempt from this fact. The League is routinely dominated and won by the teams with the largest fanbases, most revenue, and some seedy financial backers.</p>
-<p>More money does not always mean more wins though, or in our case points. Over the long term, the teams who spend the most generally perform better, but if you zoom in a little there can be some really unexpected outcomes where teams over or underperform based on their spending.</p>
-<p>Over the last three seasons, 2021-22 through 2023-24, there have been two teams with wildy different spending habits, but similar results. Chelsea, an English powerhouse, have always been big spenders, but over the last three years they have taken that identity to a whole new level. Since the start of the 2021 season, Chelsea have spend a record 1.2 billion USD on transfer fees alone. That is almost 400 million dollars more than the next closest club.</p>
+<p>All is fair in love and war, but definitely not in football. And yes, even though I am an American I am going to be pretentious and call it football. The various leagues around the world are dominated by the clubs with the most spending power. The world is dominated by the leagues with the largest TV contracts.</p>
+<p>The Premier League, England’s top football league is not exempt from this fact. The League is routinely dominated and won by the teams with the largest fan bases, most revenue, and some seedy financial backers.</p>
+<p>More money does not always mean more wins though, or in our case points. Over the long term, the teams who spend the most generally perform better, but if you zoom in a little there can be some really unexpected outcomes where teams over or under perform based on their spending.</p>
+<p>Over the last three seasons, 2021-22 through 2023-24, there have been two teams with wildly different spending habits, but similar results. Chelsea, an English powerhouse, have always been big spenders, but over the last three years they have taken that identity to a whole new level. Since the start of the 2021 season, Chelsea have spend a record 1.2 billion USD on transfer fees alone. That is almost 400 million dollars more than the next closest club.</p>
 <p>Let’s take a step back for a moment, you may be asking yourself “what is a transfer fee?” or even “what is a transfer?”. In football, a transfer is when one club pays another club to gain the rights to negotiate a contract with a player currently under contract with another team. This means that clubs can purchase the right to sign a player at anytime even if they are under contract with another team, for a price.</p>
-<p>That price is often exorbent. Whether a team is buying a proven star that can help them win now, or a young wunderkind, fees get high and quickly. In 2022, Chelsea paid 120 million dollars to Spanish clyb SL Benifica for Argentinian midfielder Enzo Fernández.</p>
+<p>That price is often exorbitant. Whether a team is buying a proven star that can help them win now, or a young wunderkind, fees get high and quickly. In 2022, Chelsea paid 120 million dollars to Spanish club SL Benifica for Argentinian midfielder Enzo Fernández.</p>
 <p>Brighton &amp; Hove Albion, Brighton for short, have in comparison to Chelsea, spent much less over the last three years. We will look at them closer in a bit, but keep them in mind when looking at this first chart.</p>
 <div class="cell">
 <details class="code-fold">
@@ -237,6 +237,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>If you said “wow”, or “is that even possible?”, me too. Chelsea has spent almost double the next closest club Arsenal in transfer fees, and over 40 times more than the Premier League newcomer Luton Town.</p>
+<p>Brighton on the other hand, while not extremely cheap, is not spending fees on blockbuster transfers every cycle like Chelsea is. Right now the two teams don’t look too similar, but soon you should be able to see how these two teams have more in common than you might expect.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -269,7 +271,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p><strong>function for residuals</strong></p>
+<p>One again I raise the question, is that possible? The answer is yes, somehow. While far in a way spending more than any other team in the league, they only have the 8th most points over that time span. Brighton on the other hand, were the 13th biggest spenders, and finished right behind Chelsea with the 9th most points, only 6 points behind Chelsea’s total of 162 to be exact.</p>
+<p>We can actually predict how many points each team should have based on how much money they have spent on transfers. When doing that we get a predicted point total and a residual point total. The predicted point total is how many points a team should have, and the residual is how many points above or below the team actually had compared to the predicted number. For some teams the results of this query show how much they have over performed, for others not so much.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -320,6 +323,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>Let’s start with the good. While leading the league in spending, teams in the top right quadrant also have exceeded their lofty expectations. These are your traditional powerhouses like Manchester City, Liverpool, and Arsenal. In your top left quadrant are teams that spend below the average transfer sum the last three years and are still exceeding expectations. Leading this group is Brighton, they have spent 80 million less than the average team but are have the 4th highest residual. Meaning they spend less, and beat expectations.</p>
+<p>Some teams don’t live up to the lofty expectations that their checkbooks create. Team’s in the bottom half of the chart are falling short based on whats expected of them because of their spending. Then, if you look in the bottom right of the chart, keep going, you will find Chelsea. They have earned 119 points less than expected based on their spending over the last three seasons. That is 60 points less than the next most under performing team Nottingham Forest, and 175 points less than our beacon of financial responsibility Brighton.</p>
+<p>In the long run, Chelsea will most likely regress to the mean and get back to the top of the Premier League table. But, in the meantime let this be a lesson that more money does not necessarily equal more points.</p>
 
 
 
