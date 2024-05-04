@@ -193,291 +193,162 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worldfootballR)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'scales'
-
-The following object is masked from 'package:purrr':
-
-    discard
-
-The following object is masked from 'package:readr':
-
-    col_factor</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Registered S3 methods overwritten by 'ggalt':
-  method                  from   
-  grid.draw.absoluteGrob  ggplot2
-  grobHeight.absoluteGrob ggplot2
-  grobWidth.absoluteGrob  ggplot2
-  grobX.absoluteGrob      ggplot2
-  grobY.absoluteGrob      ggplot2</code></pre>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>playingtimestats <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"playing_time"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>standardstats <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"standard"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>misc <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"misc"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>gca <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"gca"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>shooting <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"shooting"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>passing <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"passing"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>t20 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ALG"</span>, <span class="st">"ARG"</span>, <span class="st">"AUT"</span>, <span class="st">"BEL"</span>, <span class="st">"BRA"</span>, <span class="st">"CIV"</span>, <span class="st">"COL"</span>, <span class="st">"CRO"</span>, <span class="st">"DEN"</span>, <span class="st">"ENG"</span>, <span class="st">"ESP"</span>, <span class="st">"FRA"</span>, <span class="st">"GER"</span>, <span class="st">"GHA"</span>, <span class="st">"ITA"</span>, <span class="st">"JPN"</span>, <span class="st">"MAR"</span>, <span class="st">"NED"</span>, <span class="st">"NGA"</span>, <span class="st">"NOR"</span>, <span class="st">"POR"</span>, <span class="st">"SCO"</span>, <span class="st">"SEN"</span>, <span class="st">"SRB"</span>, <span class="st">"URU"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>percentplayingtime <span class="ot">&lt;-</span> playingtimestats <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Min_percent_Playing.Time <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">playingtime_percent =</span> <span class="fu">mean</span>(Min_percent_Playing.Time)) <span class="sc">|&gt;</span> </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">%in%</span> t20)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>standardnations <span class="ot">&lt;-</span> standardstats <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Min_Playing <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Goals_Plus_Assist =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">G+A_Per</span><span class="st">`</span>),</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_minutes =</span> <span class="fu">sum</span>(Min_Playing)) <span class="sc">|&gt;</span> </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(total_minutes <span class="sc">&gt;=</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nationshotscreated <span class="ot">&lt;-</span> gca <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Shot_Creating_Actions_Per_Ninety =</span> <span class="fu">mean</span>(SCA90_SCA)) <span class="sc">|&gt;</span> </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">%in%</span> t20) <span class="sc">|&gt;</span> </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Shot_Creating_Actions_Per_Ninety <span class="sc">&gt;=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nation_passing <span class="ot">&lt;-</span> passing <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_passes =</span> <span class="fu">sum</span>(Cmp_Total))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>shooting_nation <span class="ot">&lt;-</span> shooting <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_shots =</span> <span class="fu">sum</span>(Sh_Standard))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nation_passing <span class="ot">&lt;-</span> passing <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_passes =</span> <span class="fu">sum</span>(Att_Total))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> standardnations <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(nationshotscreated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(Nation)`</code></pre>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>shooting_standard <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(shooting_nation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(Nation)`</code></pre>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>shots_per_ninety <span class="ot">&lt;-</span> shooting_standard <span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shots_per_minute =</span> total_shots <span class="sc">/</span> total_minutes) <span class="sc">|&gt;</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shots_per_ninety =</span> shots_per_minute <span class="sc">*</span> <span class="dv">90</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> shots_per_ninety <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(current_standard)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(Nation, Goals_Plus_Assist, total_minutes,
-Shot_Creating_Actions_Per_Ninety)`</code></pre>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> percentplayingtime <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(current_standard)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(Nation)`</code></pre>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> nation_passing <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(current_standard)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(Nation)`</code></pre>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">passes_per_minute =</span> total_passes <span class="sc">/</span> total_minutes) <span class="sc">|&gt;</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">passes_per_ninety =</span> passes_per_minute <span class="sc">*</span> <span class="dv">90</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>croatia <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">==</span> <span class="st">"CRO"</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>argentina <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">==</span> <span class="st">"ARG"</span>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>japan <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">==</span> <span class="st">"JPN"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p><strong>Charts for total minutes by nation</strong></p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>bar1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>current_standard, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Nation, total_minutes), <span class="at">weight=</span>total_minutes)) <span class="sc">+</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>japan, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Nation, total_minutes), <span class="at">weight=</span>total_minutes), <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>comma) <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">""</span>, </span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">"Total Minutes Played"</span>) <span class="sc">+</span> </span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>bar2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>current_standard, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Nation, playingtime_percent), <span class="at">weight=</span>playingtime_percent)) <span class="sc">+</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>japan, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Nation, playingtime_percent), <span class="at">weight=</span>playingtime_percent), <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">""</span>, </span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">"Percentage of Minutes Played"</span>) <span class="sc">+</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>  bar1 <span class="sc">+</span> bar2 <span class="sc">+</span> </span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Japan's few minutes show up big "</span>,</span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Japanese forwards are playing more of their team's minutes than players of any other nation"</span>,</span>
-<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: Football Reference | By Gus Kathol"</span>) <span class="sc">&amp;</span></span>
-<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
-<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>), </span>
-<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
-<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
-<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worldfootballR)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalt)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>playingtimestats <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"playing_time"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>standardstats <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"standard"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>misc <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"misc"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>gca <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"gca"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>shooting <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"shooting"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>passing <span class="ot">&lt;-</span> <span class="fu">fb_big5_advanced_season_stats</span>(<span class="at">season_end_year=</span><span class="dv">2023</span>,<span class="at">stat_type=</span><span class="st">"passing"</span>,<span class="at">team_or_player=</span><span class="st">"player"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>t20 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ALG"</span>, <span class="st">"ARG"</span>, <span class="st">"AUT"</span>, <span class="st">"BEL"</span>, <span class="st">"BRA"</span>, <span class="st">"CIV"</span>, <span class="st">"COL"</span>, <span class="st">"CRO"</span>, <span class="st">"DEN"</span>, <span class="st">"ENG"</span>, <span class="st">"ESP"</span>, <span class="st">"FRA"</span>, <span class="st">"GER"</span>, <span class="st">"GHA"</span>, <span class="st">"ITA"</span>, <span class="st">"JPN"</span>, <span class="st">"MAR"</span>, <span class="st">"NED"</span>, <span class="st">"NGA"</span>, <span class="st">"NOR"</span>, <span class="st">"POR"</span>, <span class="st">"SCO"</span>, <span class="st">"SEN"</span>, <span class="st">"SRB"</span>, <span class="st">"URU"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>percentplayingtime <span class="ot">&lt;-</span> playingtimestats <span class="sc">|&gt;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Min_percent_Playing.Time <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">playingtime_percent =</span> <span class="fu">mean</span>(Min_percent_Playing.Time)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">%in%</span> t20)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>standardnations <span class="ot">&lt;-</span> standardstats <span class="sc">|&gt;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Min_Playing <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">Goals_Plus_Assist =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">G+A_Per</span><span class="st">`</span>),</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_minutes =</span> <span class="fu">sum</span>(Min_Playing)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(total_minutes <span class="sc">&gt;=</span> <span class="dv">10000</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>nationshotscreated <span class="ot">&lt;-</span> gca <span class="sc">|&gt;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">Shot_Creating_Actions_Per_Ninety =</span> <span class="fu">mean</span>(SCA90_SCA)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">%in%</span> t20) <span class="sc">|&gt;</span> </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Shot_Creating_Actions_Per_Ninety <span class="sc">&gt;=</span> <span class="dv">0</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>nation_passing <span class="ot">&lt;-</span> passing <span class="sc">|&gt;</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_passes =</span> <span class="fu">sum</span>(Cmp_Total))</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>shooting_nation <span class="ot">&lt;-</span> shooting <span class="sc">|&gt;</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_shots =</span> <span class="fu">sum</span>(Sh_Standard))</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>nation_passing <span class="ot">&lt;-</span> passing <span class="sc">|&gt;</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Nation) <span class="sc">|&gt;</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Pos <span class="sc">==</span> <span class="st">"FW"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"FW,MF"</span> <span class="sc">|</span> Pos <span class="sc">==</span> <span class="st">"MF,FW"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_passes =</span> <span class="fu">sum</span>(Att_Total))</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> standardnations <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(nationshotscreated)</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>shooting_standard <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(shooting_nation)</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>shots_per_ninety <span class="ot">&lt;-</span> shooting_standard <span class="sc">|&gt;</span> </span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shots_per_minute =</span> total_shots <span class="sc">/</span> total_minutes) <span class="sc">|&gt;</span> </span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shots_per_ninety =</span> shots_per_minute <span class="sc">*</span> <span class="dv">90</span>)</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> shots_per_ninety <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(current_standard)</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> percentplayingtime <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(current_standard)</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> nation_passing <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(current_standard)</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>current_standard <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">passes_per_minute =</span> total_passes <span class="sc">/</span> total_minutes) <span class="sc">|&gt;</span> </span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">passes_per_ninety =</span> passes_per_minute <span class="sc">*</span> <span class="dv">90</span>)</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>croatia <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">==</span> <span class="st">"CRO"</span>)</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>argentina <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">==</span> <span class="st">"ARG"</span>)</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>japan <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Nation <span class="sc">==</span> <span class="st">"JPN"</span>)</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>bar1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>current_standard, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Nation, total_minutes), <span class="at">weight=</span>total_minutes)) <span class="sc">+</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>japan, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Nation, total_minutes), <span class="at">weight=</span>total_minutes), <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>comma) <span class="sc">+</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">""</span>, </span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">"Total Minutes Played"</span>) <span class="sc">+</span> </span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>bar2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>current_standard, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Nation, playingtime_percent), <span class="at">weight=</span>playingtime_percent)) <span class="sc">+</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>japan, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Nation, playingtime_percent), <span class="at">weight=</span>playingtime_percent), <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">""</span>, </span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">"Percentage of Minutes Played"</span>) <span class="sc">+</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  bar1 <span class="sc">+</span> bar2 <span class="sc">+</span> </span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Japan's few minutes show up big "</span>,</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Japanese forwards are playing more of their team's minutes than players of any other nation"</span>,</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: Football Reference | By Gus Kathol"</span>) <span class="sc">&amp;</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>), </span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>Chart for goals and assist and shot creating actions</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> current_standard, <span class="fu">aes</span>(<span class="at">x =</span> Goals_Plus_Assist, <span class="at">y =</span> Shot_Creating_Actions_Per_Ninety)) <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> croatia, <span class="fu">aes</span>(<span class="at">x =</span> Goals_Plus_Assist, <span class="at">y =</span> Shot_Creating_Actions_Per_Ninety), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> japan, <span class="fu">aes</span>(<span class="at">x =</span> Goals_Plus_Assist, <span class="at">y =</span> Shot_Creating_Actions_Per_Ninety), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>croatia, </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x=</span>Goals_Plus_Assist, <span class="at">y=</span>Shot_Creating_Actions_Per_Ninety, <span class="at">label=</span><span class="st">"Croatia"</span>)) <span class="sc">+</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>japan, </span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x=</span>Goals_Plus_Assist, <span class="at">y=</span>Shot_Creating_Actions_Per_Ninety, <span class="at">label=</span><span class="st">"Japan"</span>)) <span class="sc">+</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_encircle</span>(<span class="at">data=</span>japan, <span class="fu">aes</span>(<span class="at">x=</span>Goals_Plus_Assist <span class="sc">+</span>.<span class="dv">025</span>, <span class="at">y=</span>Shot_Creating_Actions_Per_Ninety <span class="sc">+</span>.<span class="dv">2</span>), <span class="at">s_shape=</span> <span class="dv">0</span>, <span class="at">expand=</span>.<span class="dv">18</span>, <span class="at">colour=</span><span class="st">"red"</span>)<span class="sc">+</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">"Goals Plus Assist Per 90 "</span>, </span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">"Shot Creating Actions Per 90"</span>, </span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title=</span><span class="st">"A new team enters the mix"</span>, </span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle=</span><span class="st">"Croatian and Japanese forwards are providing more points for their teams than any other nations."</span>, </span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption=</span><span class="st">"Source: Football Reference | By Gus Kathol"</span></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>), </span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> current_standard, <span class="fu">aes</span>(<span class="at">x =</span> Goals_Plus_Assist, <span class="at">y =</span> Shot_Creating_Actions_Per_Ninety)) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> croatia, <span class="fu">aes</span>(<span class="at">x =</span> Goals_Plus_Assist, <span class="at">y =</span> Shot_Creating_Actions_Per_Ninety), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> japan, <span class="fu">aes</span>(<span class="at">x =</span> Goals_Plus_Assist, <span class="at">y =</span> Shot_Creating_Actions_Per_Ninety), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>croatia, </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x=</span>Goals_Plus_Assist, <span class="at">y=</span>Shot_Creating_Actions_Per_Ninety, <span class="at">label=</span><span class="st">"Croatia"</span>)) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>japan, </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x=</span>Goals_Plus_Assist, <span class="at">y=</span>Shot_Creating_Actions_Per_Ninety, <span class="at">label=</span><span class="st">"Japan"</span>)) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_encircle</span>(<span class="at">data=</span>japan, <span class="fu">aes</span>(<span class="at">x=</span>Goals_Plus_Assist <span class="sc">+</span>.<span class="dv">025</span>, <span class="at">y=</span>Shot_Creating_Actions_Per_Ninety <span class="sc">+</span>.<span class="dv">2</span>), <span class="at">s_shape=</span> <span class="dv">0</span>, <span class="at">expand=</span>.<span class="dv">18</span>, <span class="at">colour=</span><span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">"Goals Plus Assist Per 90 "</span>, </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">"Shot Creating Actions Per 90"</span>, </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title=</span><span class="st">"A new team enters the mix"</span>, </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle=</span><span class="st">"Croatian and Japanese forwards are providing more points for their teams than any other nations."</span>, </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption=</span><span class="st">"Source: Football Reference | By Gus Kathol"</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>), </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -486,72 +357,68 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>volume_table_data <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Nation, shots_per_ninety, passes_per_ninety) <span class="sc">|&gt;</span> </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(shots_per_ninety)) <span class="sc">|&gt;</span> </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>, <span class="at">wt =</span> shots_per_ninety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>volume_table_data <span class="sc">|&gt;</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">shots_per_ninety =</span> <span class="st">"Shots Per 90"</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">passes_per_ninety =</span> <span class="st">"Passes Per 90"</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Argentina gets active"</span>,</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Argentinians produce a higher volume of shots and passes per 90 than any other nation."</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="st">"title"</span>)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> <span class="fu">tab_style</span>(</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="st">"subtitle"</span>)</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_note =</span> <span class="fu">md</span>(<span class="st">"**By:** Gus Kathol  |  **Source:** Fotball Reference"</span>)</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">locations =</span> <span class="fu">cells_column_labels</span>(<span class="at">columns =</span> <span class="fu">everything</span>()),</span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">style =</span> <span class="fu">list</span>(</span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cell_borders</span>(<span class="at">sides =</span> <span class="st">"bottom"</span>, <span class="at">weight =</span> <span class="fu">px</span>(<span class="dv">3</span>)),</span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">size=</span><span class="dv">12</span>))</span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>     ) <span class="sc">|&gt;</span> </span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_row_striping</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_table_lines</span>(<span class="st">"none"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_auto</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
-<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">list</span>(</span>
-<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"lightblue"</span>),</span>
-<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span>
-<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(</span>
-<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">rows =</span> Nation <span class="sc">==</span> <span class="st">"ARG"</span>)</span>
-<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>volume_table_data <span class="ot">&lt;-</span> current_standard <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Nation, shots_per_ninety, passes_per_ninety) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(shots_per_ninety)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>, <span class="at">wt =</span> shots_per_ninety)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>volume_table_data <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">shots_per_ninety =</span> <span class="st">"Shots Per 90"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">passes_per_ninety =</span> <span class="st">"Passes Per 90"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Argentina gets active"</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Argentinians produce a higher volume of shots and passes per 90 than any other nation."</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="st">"title"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> <span class="fu">tab_style</span>(</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="st">"subtitle"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_note =</span> <span class="fu">md</span>(<span class="st">"**By:** Gus Kathol  |  **Source:** Fotball Reference"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>     <span class="at">locations =</span> <span class="fu">cells_column_labels</span>(<span class="at">columns =</span> <span class="fu">everything</span>()),</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">style =</span> <span class="fu">list</span>(</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cell_borders</span>(<span class="at">sides =</span> <span class="st">"bottom"</span>, <span class="at">weight =</span> <span class="fu">px</span>(<span class="dv">3</span>)),</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">size=</span><span class="dv">12</span>))</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>     ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_row_striping</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_table_lines</span>(<span class="st">"none"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_auto</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">list</span>(</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"lightblue"</span>),</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">rows =</span> Nation <span class="sc">==</span> <span class="st">"ARG"</span>)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
-<div id="gycsjnhrpv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gycsjnhrpv table {
+<div id="hyjzxhurtl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hyjzxhurtl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gycsjnhrpv thead, #gycsjnhrpv tbody, #gycsjnhrpv tfoot, #gycsjnhrpv tr, #gycsjnhrpv td, #gycsjnhrpv th {
+#hyjzxhurtl thead, #hyjzxhurtl tbody, #hyjzxhurtl tfoot, #hyjzxhurtl tr, #hyjzxhurtl td, #hyjzxhurtl th {
   border-style: none;
 }
 
-#gycsjnhrpv p {
+#hyjzxhurtl p {
   margin: 0;
   padding: 0;
 }
 
-#gycsjnhrpv .gt_table {
+#hyjzxhurtl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -577,12 +444,12 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_caption {
+#hyjzxhurtl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gycsjnhrpv .gt_title {
+#hyjzxhurtl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -594,7 +461,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-bottom-width: 0;
 }
 
-#gycsjnhrpv .gt_subtitle {
+#hyjzxhurtl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -606,7 +473,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-top-width: 0;
 }
 
-#gycsjnhrpv .gt_heading {
+#hyjzxhurtl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -618,13 +485,13 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_bottom_border {
+#hyjzxhurtl .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_col_headings {
+#hyjzxhurtl .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -639,7 +506,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_col_heading {
+#hyjzxhurtl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -659,7 +526,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   overflow-x: hidden;
 }
 
-#gycsjnhrpv .gt_column_spanner_outer {
+#hyjzxhurtl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -671,15 +538,15 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   padding-right: 4px;
 }
 
-#gycsjnhrpv .gt_column_spanner_outer:first-child {
+#hyjzxhurtl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gycsjnhrpv .gt_column_spanner_outer:last-child {
+#hyjzxhurtl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gycsjnhrpv .gt_column_spanner {
+#hyjzxhurtl .gt_column_spanner {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -691,11 +558,11 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   width: 100%;
 }
 
-#gycsjnhrpv .gt_spanner_row {
+#hyjzxhurtl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gycsjnhrpv .gt_group_heading {
+#hyjzxhurtl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -721,7 +588,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   text-align: left;
 }
 
-#gycsjnhrpv .gt_empty_group_heading {
+#hyjzxhurtl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -736,15 +603,15 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   vertical-align: middle;
 }
 
-#gycsjnhrpv .gt_from_md > :first-child {
+#hyjzxhurtl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gycsjnhrpv .gt_from_md > :last-child {
+#hyjzxhurtl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gycsjnhrpv .gt_row {
+#hyjzxhurtl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -763,7 +630,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   overflow-x: hidden;
 }
 
-#gycsjnhrpv .gt_stub {
+#hyjzxhurtl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -776,7 +643,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   padding-right: 5px;
 }
 
-#gycsjnhrpv .gt_stub_row_group {
+#hyjzxhurtl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -790,15 +657,15 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   vertical-align: top;
 }
 
-#gycsjnhrpv .gt_row_group_first td {
+#hyjzxhurtl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gycsjnhrpv .gt_row_group_first th {
+#hyjzxhurtl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gycsjnhrpv .gt_summary_row {
+#hyjzxhurtl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -808,16 +675,16 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   padding-right: 5px;
 }
 
-#gycsjnhrpv .gt_first_summary_row {
+#hyjzxhurtl .gt_first_summary_row {
   border-top-style: none;
   border-top-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_first_summary_row.thick {
+#hyjzxhurtl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gycsjnhrpv .gt_last_summary_row {
+#hyjzxhurtl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -827,7 +694,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_grand_summary_row {
+#hyjzxhurtl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -837,7 +704,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   padding-right: 5px;
 }
 
-#gycsjnhrpv .gt_first_grand_summary_row {
+#hyjzxhurtl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -847,7 +714,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_last_grand_summary_row_top {
+#hyjzxhurtl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -857,11 +724,11 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_striped {
+#hyjzxhurtl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gycsjnhrpv .gt_table_body {
+#hyjzxhurtl .gt_table_body {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -870,7 +737,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_footnotes {
+#hyjzxhurtl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -884,7 +751,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_footnote {
+#hyjzxhurtl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -893,7 +760,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   padding-right: 5px;
 }
 
-#gycsjnhrpv .gt_sourcenotes {
+#hyjzxhurtl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -907,7 +774,7 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#gycsjnhrpv .gt_sourcenote {
+#hyjzxhurtl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -915,63 +782,63 @@ Shot_Creating_Actions_Per_Ninety)`</code></pre>
   padding-right: 5px;
 }
 
-#gycsjnhrpv .gt_left {
+#hyjzxhurtl .gt_left {
   text-align: left;
 }
 
-#gycsjnhrpv .gt_center {
+#hyjzxhurtl .gt_center {
   text-align: center;
 }
 
-#gycsjnhrpv .gt_right {
+#hyjzxhurtl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gycsjnhrpv .gt_font_normal {
+#hyjzxhurtl .gt_font_normal {
   font-weight: normal;
 }
 
-#gycsjnhrpv .gt_font_bold {
+#hyjzxhurtl .gt_font_bold {
   font-weight: bold;
 }
 
-#gycsjnhrpv .gt_font_italic {
+#hyjzxhurtl .gt_font_italic {
   font-style: italic;
 }
 
-#gycsjnhrpv .gt_super {
+#hyjzxhurtl .gt_super {
   font-size: 65%;
 }
 
-#gycsjnhrpv .gt_footnote_marks {
+#hyjzxhurtl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gycsjnhrpv .gt_asterisk {
+#hyjzxhurtl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gycsjnhrpv .gt_indent_1 {
+#hyjzxhurtl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gycsjnhrpv .gt_indent_2 {
+#hyjzxhurtl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gycsjnhrpv .gt_indent_3 {
+#hyjzxhurtl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gycsjnhrpv .gt_indent_4 {
+#hyjzxhurtl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gycsjnhrpv .gt_indent_5 {
+#hyjzxhurtl .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
